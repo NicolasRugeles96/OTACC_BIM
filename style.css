@@ -1,0 +1,542 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary: #029AE0;
+  --primary-100: #073044;
+  --primary-200: #415A66;
+
+  --background: #202124;
+  --background-100: #26282b;
+  --background-200: #3b3c3f;
+  --background-300: #404040;
+
+  --text: #f1f1f1;
+  --muted: #a0a0a0;
+
+  --border: rgba(255, 255, 255, 0.08);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+
+  --radius-lg: 18px;
+  --radius-md: 12px;
+
+  --font-sm: 12px;
+  --font-base: 14px;
+  --font-lg: 16px;
+  --font-xl: 20px;
+
+  /* Default icon bg in case not set */
+  --project-icon-bg: #ca8134;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  background: var(--background);
+  color: var(--text);
+}
+
+#content {
+  min-height: 100vh;
+}
+
+/* ---------- App layout ---------- */
+
+body {
+  display: grid;
+  grid-template-columns: 14rem 1fr;
+  grid-template-areas: "sidebar content";
+}
+
+#sidebar {
+  grid-area: sidebar;
+  background: var(--background-100);
+  border-right: 1px solid var(--border);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#company-logo {
+  width: 100%;
+  max-height: 46px;
+  object-fit: contain;
+}
+
+#nav-buttons {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#nav-buttons li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: var(--text);
+  border: 1px solid transparent;
+}
+
+#nav-buttons li:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--border);
+}
+
+#nav-buttons .material-icons-round {
+  opacity: 0.9;
+}
+
+#content {
+  grid-area: content;
+  padding: 18px;
+}
+
+.page {
+  width: 100%;
+  height: calc(100vh - 36px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ---------- Headers ---------- */
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 2px;
+}
+
+header h2 {
+  font-size: var(--font-xl);
+  font-weight: 700;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.action-icon {
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+}
+
+.action-icon:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+/* ---------- Buttons ---------- */
+
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  color: var(--text);
+}
+
+.btn-primary {
+  background: var(--primary);
+}
+
+.btn-primary:hover {
+  filter: brightness(1.05);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+button .material-icons-round {
+  font-size: 18px;
+}
+
+/* ---------- Projects list ---------- */
+
+#projects-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+  overflow: auto;
+  padding-bottom: 8px;
+}
+
+.project-card {
+  background: var(--background-100);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 14px;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+
+.project-card:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.project-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--project-icon-bg);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+
+  /* ✅ MUST be uppercased using CSS rules */
+  text-transform: uppercase;
+}
+
+.project-main h5 {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.project-main p {
+  color: var(--muted);
+  font-size: var(--font-sm);
+}
+
+.card-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 14px;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+
+.card-property {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: var(--font-sm);
+}
+
+/* ---------- Details page ---------- */
+
+.details-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.details-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.details-header-left p {
+  color: var(--muted);
+}
+
+.main-page-content {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 14px;
+  height: 100%;
+  overflow: hidden;
+}
+
+.details-left {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.dashboard-card {
+  background: var(--background-100);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.viewer-card {
+  min-height: 520px;
+}
+
+/* ---------- Summary grid ---------- */
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  padding: 16px;
+}
+
+.summary-item p:first-child {
+  color: var(--muted);
+  font-size: var(--font-sm);
+  margin-bottom: 6px;
+}
+
+/* ---------- Todos ---------- */
+
+.todos-header {
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+
+.todos-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.todos-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.todos-search input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+  width: 220px;
+}
+
+.todos-list {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.todo-empty {
+  color: var(--muted);
+  padding: 10px;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+}
+
+/* Base ToDo item */
+.todo-item {
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.todo-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.todo-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.todo-icon {
+  padding: 10px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.todo-title {
+  font-size: var(--font-base);
+}
+
+.todo-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.todo-status-select {
+  background: rgba(0,0,0,0.15);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 8px 10px;
+  outline: none;
+}
+
+.todo-edit {
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+}
+
+.todo-edit:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ✅ Background color based on ToDo status */
+.todo-pending {
+  background: rgba(255, 193, 7, 0.10);
+  border-color: rgba(255, 193, 7, 0.25);
+}
+
+.todo-in_progress {
+  background: rgba(3, 169, 244, 0.10);
+  border-color: rgba(3, 169, 244, 0.25);
+}
+
+.todo-done {
+  background: rgba(76, 175, 80, 0.12);
+  border-color: rgba(76, 175, 80, 0.28);
+}
+
+.todo-blocked {
+  background: rgba(244, 67, 54, 0.10);
+  border-color: rgba(244, 67, 54, 0.25);
+}
+
+/* ---------- Dialogs (modals) ---------- */
+
+dialog {
+  border: none;
+  border-radius: 18px;
+  background: var(--background-100);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  padding: 0;
+  width: min(560px, calc(100vw - 24px));
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+dialog form {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+dialog h2 {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.input-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-field-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-field-container label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.form-field-container input,
+.form-field-container textarea,
+.form-field-container select {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  padding: 10px 12px;
+  outline: none;
+}
+
+.form-field-container textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.hint {
+  color: var(--muted);
+  font-size: var(--font-sm);
+  font-style: italic;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 980px) {
+  body {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "content";
+  }
+
+  #sidebar {
+    display: none;
+  }
+
+  .main-page-content {
+    grid-template-columns: 1fr;
+  }
+
+  .todos-search input {
+    width: 140px;
+  }
+
+  #projects-list {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+}

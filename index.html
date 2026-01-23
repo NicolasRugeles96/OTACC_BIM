@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OTACC BIM App</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <aside id="sidebar">
+    <img id="company-logo" src="./assets/OTACC_logo_web.svg" alt="Construction Company" />
+    <ul id="nav-buttons">
+      <!-- ✅ Added id to return to Projects list -->
+      <li id="nav-projects"><span class="material-icons-round">apartment</span>Projects</li>
+      <li id="nav-users"><span class="material-icons-round">people</span>Users</li>
+    </ul>
+  </aside>
+
+  <main id="content">
+    <!-- PROJECTS PAGE -->
+    <div class="page" id="projects-page" style="display: flex;">
+      <!-- NEW PROJECT MODAL -->
+      <dialog id="new-project-modal">
+        <form id="new-project-form" method="dialog">
+          <h2>New Project</h2>
+
+          <div class="input-list">
+            <div class="form-field-container">
+              <label><span class="material-icons-round">apartment</span>Name</label>
+              <input name="name" type="text" placeholder="What's the name of your project?" required minlength="5" />
+              <p class="hint">TIP: Give it a short name (min 5 chars)</p>
+            </div>
+
+            <div class="form-field-container">
+              <label><span class="material-icons-round">subject</span>Description</label>
+              <textarea name="description" cols="30" rows="5" placeholder="Give your project a nice description!"></textarea>
+            </div>
+
+            <div class="form-field-container">
+              <label><span class="material-icons-round">person</span>Role</label>
+              <select name="userRole" required>
+                <option value="architect">Architect</option>
+                <option value="engineer">Engineer</option>
+                <option value="developer">Developer</option>
+              </select>
+            </div>
+
+            <div class="form-field-container">
+              <label><span class="material-icons-round">not_listed_location</span>Status</label>
+              <select name="status" required>
+                <option value="pending">Pending</option>
+                <option value="active">Active</option>
+                <option value="finished">Finished</option>
+              </select>
+            </div>
+
+            <div class="form-field-container">
+              <label>
+                <span class="material-icons-round">calendar_month</span>
+                Finish Date
+              </label>
+              <input name="finishDate" type="date" />
+              <p class="hint">If you don't select a date, the app will set a default one.</p>
+            </div>
+
+            <div class="modal-actions">
+              <button id="cancel-new-project-btn" type="button" class="btn-secondary">Cancel</button>
+              <button type="submit" class="btn-primary">Accept</button>
+            </div>
+          </div>
+        </form>
+      </dialog>
+
+      <header>
+        <h2>Projects</h2>
+        <div class="header-actions">
+          <span id="import-projects-btn" class="material-icons-round action-icon" title="Import">file_upload</span>
+          <span id="export-projects-btn" class="material-icons-round action-icon" title="Export">file_download</span>
+          <button id="new-project-btn" class="btn-primary">
+            <span class="material-icons-round">add</span>
+            New Project
+          </button>
+        </div>
+      </header>
+
+      <div id="projects-list"></div>
+    </div>
+
+    <!-- DETAILS PAGE -->
+    <div class="page" id="project-details" style="display: none;">
+      <header class="details-header">
+        <div class="details-header-left">
+          <h2 data-project-info="name">Project Name</h2>
+          <p data-project-info="description" class="muted">Project description</p>
+        </div>
+
+        <div class="details-header-right">
+          <button id="edit-project-btn" class="btn-secondary">
+            <span class="material-icons-round">edit</span>
+            Edit
+          </button>
+        </div>
+      </header>
+
+      <!-- EDIT PROJECT MODAL -->
+      <dialog id="edit-project-modal">
+        <form id="edit-project-form" method="dialog">
+          <h2>Edit Project</h2>
+
+          <div class="input-list">
+            <div class="form-field-container">
+              <label><span class="material-icons-round">apartment</span>Name</label>
+              <input name="name" type="text" required minlength="5" />
+              <p class="hint">Min 5 characters.</p>
+            </div>
+
+            <div class="form-field-container">
+              <label><span class="material-icons-round">subject</span>Description</label>
+              <textarea name="description" cols="30" rows="5"></textarea>
+            </div>
+
+            <div class="form-field-container">
+              <label><span class="material-icons-round">person</span>Role</label>
+              <select name="userRole" required>
+                <option value="architect">Architect</option>
+                <option value="engineer">Engineer</option>
+                <option value="developer">Developer</option>
+              </select>
+            </div>
+
+            <div class="form-field-container">
+              <label><span class="material-icons-round">not_listed_location</span>Status</label>
+              <select name="status" required>
+                <option value="pending">Pending</option>
+                <option value="active">Active</option>
+                <option value="finished">Finished</option>
+              </select>
+            </div>
+
+            <div class="form-field-container">
+              <label>
+                <span class="material-icons-round">calendar_month</span>
+                Finish Date
+              </label>
+              <input name="finishDate" type="date" />
+            </div>
+
+            <div class="modal-actions">
+              <button type="button" class="btn-secondary" onclick="document.getElementById('edit-project-modal').close()">Cancel</button>
+              <button type="submit" class="btn-primary">Save</button>
+            </div>
+          </div>
+        </form>
+      </dialog>
+
+      <div class="main-page-content">
+        <div class="details-left">
+          <!-- SUMMARY CARD -->
+          <div class="dashboard-card">
+            <div class="summary-grid">
+              <div class="summary-item">
+                <p class="muted">Status</p>
+                <p data-project-info="status">-</p>
+              </div>
+              <div class="summary-item">
+                <p class="muted">Role</p>
+                <p data-project-info="role">-</p>
+              </div>
+              <div class="summary-item">
+                <p class="muted">Cost</p>
+                <p data-project-info="cost">-</p>
+              </div>
+              <div class="summary-item">
+                <p class="muted">Finish Date</p>
+                <p data-project-info="finishDate">-</p>
+              </div>
+              <div class="summary-item">
+                <p class="muted">Progress</p>
+                <p data-project-info="progress">-</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- TODOS CARD -->
+          <div class="dashboard-card">
+            <div class="todos-header">
+              <h4>To-Do</h4>
+              <div class="todos-actions">
+                <div class="todos-search">
+                  <span class="material-icons-round">search</span>
+                  <input type="text" placeholder="Search To-Do's by name" />
+                </div>
+                <span id="add-todo-btn" class="material-icons-round action-icon" title="Add ToDo">add</span>
+              </div>
+            </div>
+
+            <div id="todos-list" class="todos-list"></div>
+          </div>
+        </div>
+
+        <!-- VIEWER -->
+        <div id="viewer-container" class="dashboard-card viewer-card"></div>
+      </div>
+
+      <!-- TODO MODAL -->
+      <dialog id="todo-modal">
+        <form id="todo-form" method="dialog">
+          <h2>ToDo</h2>
+
+          <input type="hidden" name="todoId" />
+
+          <div class="input-list">
+            <div class="form-field-container">
+              <label><span class="material-icons-round">task_alt</span>Title</label>
+              <input name="title" type="text" placeholder="ToDo title" required />
+            </div>
+
+            <div class="form-field-container">
+              <label><span class="material-icons-round">flag</span>Status</label>
+              <select name="status" required>
+                <option value="pending">Pending</option>
+                <option value="in_progress">In progress</option>
+                <option value="done">Done</option>
+                <option value="blocked">Blocked</option>
+              </select>
+            </div>
+
+            <div class="modal-actions">
+              <button type="button" class="btn-secondary" onclick="document.getElementById('todo-modal').close()">Cancel</button>
+              <button type="submit" class="btn-primary">Save</button>
+            </div>
+          </div>
+        </form>
+      </dialog>
+    </div>
+  </main>
+
+  <script type="module" src="./src/index.ts"></script>
+</body>
+</html>
